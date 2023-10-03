@@ -64,7 +64,7 @@ public class MrClient {
       int response = 0;
 
       MapReduce mr = new MapReduce();
-      String chunkpath = mr.makeChunks(inputfilepath);
+      String chunkpath = MapReduce.makeChunks(inputfilepath);
       Integer noofjobs = 0;
       File dir = new File(chunkpath);
       File[] directoyListing = dir.listFiles();
