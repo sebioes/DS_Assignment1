@@ -5,14 +5,13 @@
 
 package io.grpc.filesystem.task2;
 
-import java.util.*;
-import java.util.stream.Collectors;
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-
-import io.grpc.filesystem.task2.Mapper;
 
 public class MapReduce {
 
@@ -123,7 +122,6 @@ public class MapReduce {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] parts = line.split(":");
                 String word = parts[0];
-                int count = Integer.parseInt(parts[1]);
                 wordsList.add(word);
             }
         }
@@ -137,16 +135,9 @@ public class MapReduce {
             }
         }
 
-        //Sort wordFrequencies by descending key
+        //Sort wordFrequencies by descending value
         List<Entry<String, Integer>> sortedWordFrequencies = new ArrayList<>(wordFrequencies.entrySet());
         sortedWordFrequencies.sort(Entry.<String, Integer>comparingByValue().reversed());
-
-        int i = 0;
-        for (Entry<String, Integer> entry : sortedWordFrequencies) {
-            System.out.print("zeile" + i + ": ");
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-            i++;
-        }
 
         //write each word with inital frequency 1 to textfile in output folder
         BufferedWriter outputWriter = new BufferedWriter(new FileWriter(outputfilepath));
